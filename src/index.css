@@ -1,9 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
 
 @layer base {
-    button{
-        @apply border border-black rounded-xl px-5 py-1;
-    }
+  * {
+    font-family: "Montserrat", sans-serif !important;
+  }
+  input {
+    border-radius: 2px !important;
+    border: 1px solid rgba(128, 128, 128, 0.521) !important;
+    height: 40px !important;
+  }
+  input:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border: 1px solid gray !important;
+  }
+  label {
+    font-size: 16px;
+    color: black;
+    font-weight: 600;
+  }
+  .ant-form-item {
+    margin: 5px !important;
+  }
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  .normal-text {
+    font-size: 1rem;
+  }
 }
