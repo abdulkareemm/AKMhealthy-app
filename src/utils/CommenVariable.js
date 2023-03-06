@@ -1,0 +1,1 @@
+export const SERVER_HOST = "localhost:5000/api"
