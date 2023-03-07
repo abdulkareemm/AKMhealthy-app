@@ -14,7 +14,7 @@ const Register = () => {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        `${process.env.REACT_APP_SERVER_HOST}user/register`,
+        `${process.env.REACT_APP_LOCAL_SERVER_HOST}user/register`,
         values
       );
       dispatch(hideLoading());
@@ -33,7 +33,7 @@ const Register = () => {
     }
   };
   return (
-    <div className="flex items-center flex-row h-[100vh] justify-center gap-6">
+    <div className="flex items-center flex-row h-[100vh] justify-center gap-6 bg-[#005545]">
       <div className="w-[20rem] h-[30rem] hidden md:flex justify-center items-center">
         <img src={Image} alt="" />
       </div>

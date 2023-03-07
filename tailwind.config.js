@@ -6,6 +6,10 @@ module.exports = {
       boxShadow: {
         card: "0 0 2px gray",
       },
+      colors:{
+        backgroundC:"#005555",
+        item:"rgba(255,255,255,0.72)"
+      }
     },
   },
   plugins: [],

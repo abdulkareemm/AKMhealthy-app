@@ -1,27 +1,14 @@
-import axios from "axios";
-import React, { useEffect } from "react";
+
+import React from "react";
+import {Layout} from "../components";
 
 const Home = () => {
-  const getData = async () => {
-    try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_SERVER_HOST}user/get-user-info`,
-        {},
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      );
-    } catch (err) {
-      console.log(err.message);
-    }
-  };
-  useEffect(() => {
-    getData();
-  }, []);
-  return <div>Home</div>;
+  
+  return (
+    <Layout>
+      <h1>hi</h1>
+    </Layout>
+  );
 };
 
 export default Home;

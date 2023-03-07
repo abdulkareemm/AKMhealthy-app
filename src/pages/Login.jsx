@@ -5,7 +5,7 @@ import { PRIMARY, HEADER } from "../utils/CommenStyles";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { useSelector, useDispatch } from "react-redux";
+import {  useDispatch } from "react-redux";
 import { hideLoading, showLoading } from "../redux/alertsSlice";
 const Login = () => {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ const Login = () => {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        `${process.env.REACT_APP_SERVER_HOST}user/login`,
+        `${process.env.REACT_APP_LOCAL_SERVER_HOST}user/login`,
         values
       );
       if (response.data.success) {
@@ -27,6 +27,8 @@ const Login = () => {
         }, 2000);
       } else {
         toast.error(response.data.msg);
+          dispatch(hideLoading());
+
       }
     } catch (err) {
       dispatch(hideLoading());
@@ -34,7 +36,7 @@ const Login = () => {
     }
   };
   return (
-    <div className="flex items-center flex-row h-[100vh] justify-center gap-6">
+    <div className="flex items-center flex-row h-[100vh] justify-center gap-6 bg-[#005555]">
       <div className="w-[20rem] h-[30rem] hidden md:flex justify-center items-center">
         <img src={Image} alt="" />
       </div>

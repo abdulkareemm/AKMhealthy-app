@@ -1,5 +1,5 @@
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-import { Home, Login, Register } from "./pages";
+import {  ApplyDoctor, Home, Login, Register } from "./pages";
 import { Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { ProtectorRoutes, PublicRoutes } from "./components";
@@ -7,7 +7,7 @@ import { ProtectorRoutes, PublicRoutes } from "./components";
 function App() {
   const { loading } = useSelector((state) => state.alerts);
   return (
-    <div className="bg-[#005555] relative ">
+    <div className=" relative ">
       <BrowserRouter>
         {loading && (
           <div class="flex items-center justify-center fixed z-40 bg-black/60 w-full h-full">
@@ -27,7 +27,7 @@ function App() {
             element={
               <PublicRoutes>
                 <Login />
-                </PublicRoutes>
+              </PublicRoutes>
             }
           />
           <Route
@@ -43,6 +43,14 @@ function App() {
             element={
               <ProtectorRoutes>
                 <Home />
+              </ProtectorRoutes>
+            }
+          />
+          <Route
+            path="/apply-doctor"
+            element={
+              <ProtectorRoutes>
+                <ApplyDoctor />
               </ProtectorRoutes>
             }
           />
