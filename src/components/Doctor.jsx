@@ -1,8 +1,10 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const Doctor = ({doctor}) => {
+  const navigate = useNavigate()
   return (
-    <div className="shadow-card p-2 flex flex-col cursor-pointer text-black/60 gap-2">
+    <div className="shadow-card p-2 flex flex-col cursor-pointer text-black/60 gap-2" onClick={()=>navigate(`/book-appointment/${doctor._id}`)}>
       <h1 className='text-xl font-semibold'>
         {doctor.firstName} {doctor.lastName}
       </h1>
