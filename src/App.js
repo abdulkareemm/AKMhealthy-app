@@ -1,5 +1,5 @@
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-import {  ApplyDoctor, Home, Login, Register } from "./pages";
+import {  ApplyDoctor, DoctorList, DoctorProfile, Home, Login, Notifications, Register, UserList } from "./pages";
 import { Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { ProtectorRoutes, PublicRoutes } from "./components";
@@ -51,6 +51,38 @@ function App() {
             element={
               <ProtectorRoutes>
                 <ApplyDoctor />
+              </ProtectorRoutes>
+            }
+          />
+          <Route
+            path="/notifications"
+            element={
+              <ProtectorRoutes>
+                <Notifications />
+              </ProtectorRoutes>
+            }
+          />
+          <Route
+            path="/users"
+            element={
+              <ProtectorRoutes>
+                <UserList />
+              </ProtectorRoutes>
+            }
+          />
+          <Route
+            path="/doctors"
+            element={
+              <ProtectorRoutes>
+                <DoctorList />
+              </ProtectorRoutes>
+            }
+          />
+          <Route
+            path="/doctor/profile/:id"
+            element={
+              <ProtectorRoutes>
+                <DoctorProfile />
               </ProtectorRoutes>
             }
           />

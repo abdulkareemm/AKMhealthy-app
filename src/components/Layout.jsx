@@ -1,9 +1,12 @@
-import { Avatar, Badge } from "antd";
+import { Badge } from "antd";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { setUser } from "../redux/userSlice";
 
 const Layout = (props) => {
+  const { user } = useSelector((state) => state.user);
+  const dispatch = useDispatch()
   const userMenu = [
     {
       name: "Home",
@@ -44,11 +47,31 @@ const Layout = (props) => {
       icon: "ri-user-line",
     },
   ];
+  const doctorMenu = [
+    {
+      name: "Home",
+      path: "/",
+      icon: "ri-home-line",
+    },
+    {
+      name: "Appointments",
+      path: "/appointments",
+      icon: "ri-file-list-line",
+    },
+    {
+      name: "Profile",
+      path: `/doctor/profile/${user?._id}`,
+      icon: "ri-user-line",
+    },
+  ];
   const location = useLocation();
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.user);
   const [collapsed, setCollapsed] = useState(false);
-  const menuToBeRender = user?.isAdmin ? adminMenu : userMenu;
+  const menuToBeRender = user?.isAdmin
+    ? adminMenu
+    : user?.isDoctor
+    ? doctorMenu
+    : userMenu;
 
   return (
     <div className="flex flex-row px-[20px] mt-[20px]">
@@ -93,6 +116,7 @@ const Layout = (props) => {
             className="text-item text-[20px] flex flex-row mt-[25px] cursor-pointer"
             onClick={() => {
               localStorage.removeItem("token");
+              dispatch(setUser(null))
               navigate("/login");
             }}
           >
@@ -122,7 +146,11 @@ const Layout = (props) => {
             onClick={() => setCollapsed(false)}
           />
           <div className="flex items-center justify-center">
-            <Badge count={user?.unseenNotifications.length} className="mr-4">
+            <Badge
+              count={user?.unseenNotifications.length}
+              className="mr-4"
+              onClick={() => navigate("/notifications")}
+            >
               <i className="ri-notification-line text-[2rem] cursor-pointer" />
             </Badge>
             <Link

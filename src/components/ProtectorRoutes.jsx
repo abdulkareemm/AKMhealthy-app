@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { hideLoading, showLoading } from "../redux/alertsSlice";
-import { setUser } from "../redux/userSlice";
+import {  setUser } from "../redux/userSlice";
 const ProtectorRoutes = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,8 +35,8 @@ const ProtectorRoutes = (props) => {
     }
   };
   useEffect(() => {
-    getUser();
-  }, []);
+    if(!user)getUser();
+  }, [user]);
   if (localStorage.getItem("token")) {
     return props.children;
   } else {
