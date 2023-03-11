@@ -1,5 +1,5 @@
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-import {  ApplyDoctor, DoctorList, DoctorProfile, Home, Login, Notifications, Register, UserList } from "./pages";
+import {  ApplyDoctor, BookAppointmentPage, DoctorList, DoctorProfile, Home, Login, Notifications, Register, UserList } from "./pages";
 import { Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { ProtectorRoutes, PublicRoutes } from "./components";
@@ -83,6 +83,14 @@ function App() {
             element={
               <ProtectorRoutes>
                 <DoctorProfile />
+              </ProtectorRoutes>
+            }
+          />
+          <Route
+            path="/book-appointment/:id"
+            element={
+              <ProtectorRoutes>
+                <BookAppointmentPage />
               </ProtectorRoutes>
             }
           />
