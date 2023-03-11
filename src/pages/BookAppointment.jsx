@@ -14,6 +14,7 @@ const BookAppointment = () => {
   const [doctor, setDoctor] = useState(null);
   const [date, setDate] = useState(null);
   const [time, setTime] = useState(null);
+  const [avialability, setAvialability] = useState(false);
   const dispatch = useDispatch();
   const getDoctorInfo = async () => {
     try {
@@ -40,6 +41,37 @@ const BookAppointment = () => {
       toast.error("Something went wrong");
     }
   };
+  const checkAvailability = async () => {
+    try {
+      dispatch(showLoading());
+      const response = await axios.post(
+        `${process.env.REACT_APP_LOCAL_SERVER_HOST}appointment/check-booking-avilability`,
+        {
+          doctorId: id,
+          date: date,
+          time: time,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+      if (response.data.success) {
+        dispatch(hideLoading());
+        toast.success(response.data.msg);
+        setAvialability(true);
+      } else {
+        toast.error(response.data.msg);
+        dispatch(hideLoading());
+      }
+    } catch (err) {
+      dispatch(hideLoading());
+      console.log(err.message);
+      toast.error("Error booking appointment");
+    }
+  };
   const BookNow = async () => {
     try {
       dispatch(showLoading());
@@ -62,7 +94,7 @@ const BookAppointment = () => {
       );
       if (response.data.success) {
         dispatch(hideLoading());
-
+        setAvialability(false);
         toast.success(response.data.msg);
       }
     } catch (err) {
@@ -92,24 +124,31 @@ const BookAppointment = () => {
                 <DatePicker
                   format="DD-MM-YYYY"
                   onChange={(value) =>
-                    setDate(moment(value).format("DD-MM-YYYY"))
+                    setDate(moment(value.toISOString()).format("DD-MM-YYYY"))
                   }
                 />
                 <TimePicker
                   format="HH:mm"
+                  
                   onChange={(value) => {
-                    setTime(value.format("HH:mm"));
+                    setTime(moment(value.toISOString()).format("HH:mm"));
                   }}
                 />
-                <Button className="bg-backgroundC mt-2 p-5 flex items-center justify-center">
-                  Check Availability
-                </Button>
-                <Button
-                  className="bg-backgroundC mt-5 p-5 flex items-center justify-center"
-                  onClick={BookNow}
-                >
-                  Book Now
-                </Button>
+                {avialability ? (
+                  <Button
+                    className="bg-backgroundC mt-5 p-5 flex items-center justify-center"
+                    onClick={BookNow}
+                  >
+                    Book Now
+                  </Button>
+                ) : (
+                  <Button
+                    className="bg-backgroundC mt-2 p-5 flex items-center justify-center"
+                    onClick={() => checkAvailability()}
+                  >
+                    Check Availability
+                  </Button>
+                )}
               </div>
             </Col>
           </Row>
